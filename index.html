@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Private Tabs — Toolbar Test</title>
+  <meta name="description" content="Independent staging toolbar installation test and manual QA checklist.">
+  <style>
+    body { margin:0; background:#f4f7f6; }
+    #qa-page { max-width:1080px; margin:0 auto; padding:44px 24px 72px; color:#192b24; font:16px/1.6 system-ui,-apple-system,sans-serif; }
+    #qa-page * { box-sizing:border-box; }
+    #qa-page h1 { font-size:clamp(30px,5vw,46px); line-height:1.12; letter-spacing:-1.8px; margin:14px 0 18px; }
+    #qa-page h2 { font-size:21px; line-height:1.3; margin:0 0 14px; }
+    #qa-page p { margin:0 0 18px; }
+    #qa-page .qa-badge { display:inline-block; font-size:12px; font-weight:750; letter-spacing:1.1px; background:#e0ede5; border:1px solid #bdd4c5; border-radius:100px; padding:5px 12px; }
+    #qa-page .qa-intro { max-width:740px; color:#52645b; }
+    #qa-page .qa-status { display:flex; flex-wrap:wrap; gap:8px 24px; border-top:1px solid #d5ded8; padding:18px 0 26px; font-size:14px; }
+    #qa-page .qa-grid { display:grid; grid-template-columns:1.4fr 1fr; gap:22px; align-items:start; }
+    #qa-page .qa-card { padding:26px; border:1px solid #d5ded8; border-radius:16px; background:white; margin-bottom:22px; }
+    #qa-page .qa-check { display:flex; align-items:flex-start; gap:12px; padding:13px 0; border-top:1px solid #e7ece9; cursor:pointer; }
+    #qa-page .qa-check input { width:19px; height:19px; margin-top:4px; flex-shrink:0; accent-color:#267448; }
+    #qa-page .qa-small { color:#63746b; font-size:13px; }
+    #qa-page textarea { font:inherit; width:100%; min-height:150px; border:1px solid #b8c9be; border-radius:9px; padding:12px; resize:vertical; color:#192b24; background:#fff; }
+    #qa-page button { cursor:pointer; font:600 14px system-ui,sans-serif; border:1px solid #20663f; border-radius:9px; padding:12px 17px; background:#20663f; color:white; }
+    #qa-page button:focus-visible, #qa-page textarea:focus-visible, #qa-page input:focus-visible { outline:3px solid #85bfa1; outline-offset:3px; }
+    #qa-page .qa-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; align-items:center; }
+    #qa-page .qa-secondary { background:white; color:#20663f; }
+    #qa-page .qa-note { border-left:3px solid #bca15c; padding-left:14px; color:#52645b; }
+    @media(max-width:720px) { #qa-page { padding:28px 16px 48px; } #qa-page .qa-grid { grid-template-columns:1fr; } #qa-page .qa-card { padding:20px; } }
+  </style>
+</head>
+<body>
+  <div id="pt-toolbar" data-pt-company="Toolbar Test" data-pt-channel="stage" data-pt-env="stage" data-pt-powered-by="false"></div>
+  <main id="qa-page">
+    <span class="qa-badge">PRIVATE TABS / STAGING TEST</span>
+    <h1>A fresh page.<br>The real toolbar.</h1>
+    <p class="qa-intro">This separate website loads the Private Tabs staging toolbar using the published installation snippet. Use it to check installation, display controls, menus, and navigation in your own browser.</p>
+    <div class="qa-status" aria-live="polite">
+      <span id="qa-load">Toolbar: waiting to load…</span>
+      <span id="qa-version">Version: —</span>
+      <span>Environment: staging</span>
+    </div>
+    <div class="qa-grid">
+      <section class="qa-card" aria-labelledby="qa-check-title">
+        <h2 id="qa-check-title">Manual test checklist</h2>
+        <p class="qa-small">Check each item only after it passes. Your notes and checks stay in this browser; they are not submitted to a team dashboard.</p>
+        <label class="qa-check"><input type="checkbox" data-qa="mount"><span>One toolbar appears at the top, with one display rail.</span></label>
+        <label class="qa-check"><input type="checkbox" data-qa="settings"><span>The Settings menu opens and closes. Its content is readable and reachable.</span></label>
+        <label class="qa-check"><input type="checkbox" data-qa="theme"><span>Light, Dark, and System change the toolbar’s theme.</span></label>
+        <label class="qa-check"><input type="checkbox" data-qa="width"><span>Narrow, Medium, and Full Width respond without cutting off toolbar controls.</span></label>
+        <label class="qa-check"><input type="checkbox" data-qa="navigation"><span>Navigation opens the expected destination. Record any unexpected production links below.</span></label>
+        <label class="qa-check"><input type="checkbox" data-qa="responsive"><span>At phone-sized and desktop widths, toolbar menus remain usable.</span></label>
+        <label class="qa-check"><input type="checkbox" data-qa="host"><span>This page’s text, buttons, and notes field remain usable without unwanted styling changes.</span></label>
+        <label class="qa-check"><input type="checkbox" data-qa="reload"><span>After reloading, one toolbar returns and the selected display preferences behave as expected.</span></label>
+        <p id="qa-progress" class="qa-small" aria-live="polite">0 of 8 checks passed</p>
+      </section>
+      <div>
+        <section class="qa-card" aria-labelledby="qa-notes-title">
+          <h2 id="qa-notes-title">What did you find?</h2>
+          <label for="qa-notes" class="qa-small">Add the device, browser, steps, expected result, and actual result. Avoid passwords or account details.</label>
+          <textarea id="qa-notes" placeholder="Example: iPhone / Safari — opened Settings, but the bottom menu items were unreachable…"></textarea>
+          <div class="qa-actions"><button id="qa-download" type="button">Download test results</button><button id="qa-reset" class="qa-secondary" type="button">Clear checklist</button></div>
+          <p id="qa-save" class="qa-small" role="status" style="margin-top:12px">Results are saved locally when browser storage is available.</p>
+        </section>
+        <section class="qa-card" aria-labelledby="qa-scope-title">
+          <h2 id="qa-scope-title">What this page tests</h2>
+          <p>Installation on an independent website, menus, theme controls, layout, and link destinations.</p>
+          <p class="qa-note">This page has no Private Tabs account or live office connected. Account milestones, SSO, and employee data need a configured integration. Native queue commands need the Private Tabs extension.</p>
+          <p class="qa-small">Some toolbar links may leave this site. Links that expect a local app route may show a missing page because this is a standalone test host. Use Back to return, and record the destination when reporting a problem.</p>
+          <p class="qa-small">The checklist stores its own results only in your browser. The externally hosted toolbar may load its own support and analytics services.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script>
+    (() => {
+      const storageKey='pt-toolbar-independent-qa-v1';
+      const checks=[...document.querySelectorAll('#qa-page input[data-qa]')];
+      const notes=document.getElementById('qa-notes');
+      const status=document.getElementById('qa-save');
+      function progress(){ document.getElementById('qa-progress').textContent=`${checks.filter(c=>c.checked).length} of ${checks.length} checks passed`; }
+      function save(){progress();try{localStorage.setItem(storageKey,JSON.stringify({checks:Object.fromEntries(checks.map(c=>[c.dataset.qa,c.checked])),notes:notes.value}));}catch{status.textContent='Browser storage is unavailable. Download your results before leaving.';}}
+      try{const saved=JSON.parse(localStorage.getItem(storageKey)||'null');if(saved){checks.forEach(c=>c.checked=saved.checks?.[c.dataset.qa]===true);notes.value=typeof saved.notes==='string'?saved.notes:'';}}catch{status.textContent='Saved results could not be restored. You can still download this test.';}
+      progress(); checks.forEach(c=>c.addEventListener('change',save));notes.addEventListener('input',save);
+      document.getElementById('qa-reset').addEventListener('click',()=>{checks.forEach(c=>c.checked=false);save();status.textContent='Checklist cleared. Your notes are preserved.';});
+      document.getElementById('qa-download').addEventListener('click',()=>{
+        const toolbar=document.getElementById('pt-toolbar');
+        const report=['Private Tabs — Independent Toolbar Test',`Test time: ${new Date().toISOString()}`,`Page: ${location.href}`,`Toolbar version: ${toolbar?.getAttribute('data-pt-version')||'not detected'}`,`Browser: ${navigator.userAgent}`,`Viewport: ${innerWidth} × ${innerHeight}`,'',...checks.map(c=>`${c.checked?'PASS':'NOT MARKED'} — ${c.parentElement.innerText.trim()}`),'','Notes:',notes.value||'(none)'].join('\n');
+        const url=URL.createObjectURL(new Blob([report],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='private-tabs-toolbar-test.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status.textContent='Test results download started. Share the file with Jamie.';
+      });
+      function mounted(){const toolbar=document.getElementById('pt-toolbar');const version=toolbar?.getAttribute('data-pt-version');if(!version)return false;document.getElementById('qa-load').textContent=`Toolbar: loaded (${document.querySelectorAll('#pt-toolbar').length} instance)`;document.getElementById('qa-version').textContent=`Version: ${version}`;return true;}
+      document.addEventListener('pt-toolbar:ready',mounted);
+      const observer=new MutationObserver(()=>{if(mounted())observer.disconnect();});observer.observe(document.getElementById('pt-toolbar'),{attributes:true,childList:true,subtree:true});
+      setTimeout(()=>{if(!mounted())document.getElementById('qa-load').textContent='Toolbar: not detected yet — check network access or script blocking.';},15000);
+      if(mounted())observer.disconnect();
+    })();
+  </script>
+  <script async src="https://toolbar.stage.privatetabs.com/loader.js"></script>
+</body>
+</html>
